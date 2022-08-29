@@ -6,10 +6,16 @@ const flash = require("connect-flash")
 const session = require("express-session");
 const expressError = require("./utils/ExpressError");
 const methodOverride = require('method-override');
+const passport = require("passport");
+const localStratergy = require("passport-local");
+const User = require("./models/user")
+
 
 
 const campgrounds = require("./routes/campgrounds");
 const reviews = require("./routes/reviews");
+const user = require("./models/user");
+
 
 mongoose.connect('mongodb://localhost:27017/Yelp-camp')
     .then(() => {
@@ -27,6 +33,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, "public")));
 
+
+
 const sessionConfig = {
     secret: "thisshouldbeabettersecret!",
     resave: false,
@@ -39,6 +47,13 @@ const sessionConfig = {
 app.use(session(sessionConfig))
 app.use(flash());
 
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStratergy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
