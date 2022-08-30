@@ -66,6 +66,12 @@ app.use((req, res, next) => {
     next();
 })
 
+app.get("/makeUser", async (req, res) => {
+    const user = new User({ email: "Colt@gmail.com", username: "Coltt" });
+    const newUser = await User.register(user, "chicken");
+    res.send(newUser);
+})
+
 app.use("/campgrounds", campgrounds);
 app.use("/campgrounds/:id/reviews", reviews);
 
