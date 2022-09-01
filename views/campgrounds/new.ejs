@@ -21,7 +21,10 @@
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Upload images</label>
-                    <input class="form-control" type="file" id="image" name="image" multiple>
+                    <input class="form-control" type="file" id="image" name="image" multiple required>
+                    <div class="invalid-feedback">
+                        Please upload atleast one image.
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label">Campground Price</label>
