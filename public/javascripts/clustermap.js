@@ -4,7 +4,7 @@ const map = new mapboxgl.Map({
     // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
     style: 'mapbox://styles/mapbox/dark-v10',
     center: [77.3612, 23.4774],
-    zoom: 4
+    zoom: 3
 });
 
 map.on('load', () => {
@@ -72,9 +72,9 @@ map.on('load', () => {
         filter: ['!', ['has', 'point_count']],
         paint: {
             'circle-color': '#aec3b0',
-            'circle-radius': 5,
-            'circle-stroke-width': 1,
-            'circle-stroke-color': '#fff'
+            'circle-radius': 10,
+            'circle-stroke-width': 2,
+            'circle-stroke-color': '#000'
         }
     });
 
@@ -102,28 +102,27 @@ map.on('load', () => {
     // the location of the feature, with
     // description HTML from its properties.
     map.on('click', 'unclustered-point', (e) => {
+        const popText = `<strong><a href="/campgrounds/${e.features[0].properties.id}">${e.features[0].properties.title}</a></strong>
+        <p>${e.features[0].properties.description.substring(0, 50)}...</p>`;
         const coordinates = e.features[0].geometry.coordinates.slice();
-        const mag = e.features[0].properties.mag;
-        const tsunami =
-            e.features[0].properties.tsunami === 1 ? 'yes' : 'no';
 
-        // Ensure that if the map is zoomed out such that
-        // multiple copies of the feature are visible, the
-        // popup appears over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
 
         new mapboxgl.Popup()
             .setLngLat(coordinates)
             .setHTML(
-                `<h3>Campgrounds</h3>`
+                popText
             )
             .addTo(map);
     });
 
     map.on('mouseenter', 'clusters', () => {
         map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseenter', 'unclustered-point', () => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', 'unclustered-point', () => {
+        map.getCanvas().style.cursor = '';
     });
     map.on('mouseleave', 'clusters', () => {
         map.getCanvas().style.cursor = '';
