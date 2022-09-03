@@ -1,4 +1,5 @@
 mapboxgl.accessToken = mapToken;
+campground = JSON.parse(campground);
 
 
 const map = new mapboxgl.Map({
@@ -19,3 +20,4 @@ const marker1 = new mapboxgl.Marker({ color: 'red' })
     )
     .addTo(map);
 
+map.addControl(new mapboxgl.NavigationControl());
