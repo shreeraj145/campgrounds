@@ -18,7 +18,16 @@
                     <a class="nav-link" href="/campgrounds/new">New Campground</a>
                 </li>
             </ul>
-            <nav class="navbar bg-dark ms-auto">
+
+            <div class="navbar-nav ms-auto">
+                <% if(!currentUser){%>
+                    <a href="/login" class="nav-link">Login</a>
+                    <a href="/register" class="nav-link">Register</a>
+                    <% } else{%>
+                        <a href="/logout" class="nav-link">logout</a>
+                        <% }%>
+            </div>
+            <nav class="navbar bg-dark">
                 <div class="container-fluid">
                     <form class="d-flex" role="search" action="/campgrounds/search" method="get">
                         <input class="form-control" type="search" placeholder="Search Campgrounds..."
@@ -27,15 +36,6 @@
                     </form>
                 </div>
             </nav>
-            <div class="navbar-nav">
-
-                <% if(!currentUser){%>
-                    <a href="/login" class="nav-link">Login</a>
-                    <a href="/register" class="nav-link">Register</a>
-                    <% } else{%>
-                        <a href="/logout" class="nav-link">logout</a>
-                        <% }%>
-            </div>
 
         </div>
 
