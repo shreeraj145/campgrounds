@@ -29,7 +29,11 @@ body {
 .nav-link.active {
     color: white;
     border-bottom: solid;
+}
 
+.nav-link:focus {
+    color: rgba(255, 255, 255, 0.5);
+    border-bottom: solid;
 }
 
 .btn-secondary {
