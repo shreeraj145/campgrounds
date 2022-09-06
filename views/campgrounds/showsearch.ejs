@@ -1,0 +1,41 @@
+<% layout("layouts/boilerplate") %>
+    <% if(campgrounds.length !==0){ %>
+        <h2 class="mb-2">Showing results for "<%= searchQuery %>"</h2>
+        <% for(let campground of campgrounds){%>
+            <div class="infi">
+                <div class="card mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <% if(campground.images.length){ %>
+                                <img src="<%= campground.images[0].url %> " class="img-fluid p-2" alt="">
+                                <% }else{ %>
+                                    <img src="https://res.cloudinary.com/db9bosujb/image/upload/v1661968075/Escapalogy/psmsojx2fon1hblefsog.jpg"
+                                        alt="">
+                                    <% } %>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= campground.title %>
+                                </h5>
+                                <p class="card-text">
+                                    <%=campground.description.substring(0,200) %>
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        <%=campground.location %>
+                                    </small>
+                                </p>
+                                <a class="btn btn-primary" href="/campgrounds/<%= campground.id %>">view <%=
+                                        campground.title %>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+                <% }else{ %>
+                    <h2>No results found</h2>
+                    <% } %>

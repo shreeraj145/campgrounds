@@ -14,6 +14,12 @@ module.exports.renderNewForm = async (req, res, next) => {
     res.render("campgrounds/new")
 }
 
+module.exports.searchCampground = async (req, res) => {
+    const { searchQuery } = req.query;
+    const campgrounds = await Campground.find({ $text: { $search: searchQuery } });
+    res.render('campgrounds/showsearch', { campgrounds, searchQuery });
+}
+
 
 module.exports.createCampground = async (req, res) => {
     const geoData = await geocoder.forwardGeocode({

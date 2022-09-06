@@ -43,6 +43,22 @@ const campgroundSchema = new mongoose.Schema({
     ]
 }, opts);
 
+
+campgroundSchema.index(
+    {
+        location: 'text',
+        title: 'text'
+    },
+    {
+        weights:
+        {
+            location: 5,
+            title: 2
+        }
+    }
+)
+
+
 campgroundSchema.virtual('properties').get(function () {
     return {
         id: this._id,

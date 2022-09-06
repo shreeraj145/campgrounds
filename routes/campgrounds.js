@@ -14,6 +14,7 @@ router.route("/")
 
 router.get("/new", isLoggedin, catchAsync(campgrounds.renderNewForm))
 
+router.get("/search", catchAsync(campgrounds.searchCampground))
 
 router.route("/:id")
     .get(catchAsync(campgrounds.showCampground))
@@ -22,9 +23,6 @@ router.route("/:id")
 
 
 router.get("/:id/edit", isLoggedin, isAuthor, catchAsync(campgrounds.renderEditForm))
-
-
-
 
 
 
