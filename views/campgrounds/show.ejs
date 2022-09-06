@@ -64,7 +64,7 @@
                 <h2 class="mb-3 mt-4">Leave a Review</h2>
                 <form action="/campgrounds/<%= campground.id %>/reviews" method="POST" class="mb-3 validated-form"
                     novalidate>
-                    <div class="mb-3">
+                    <div>
                         <fieldset class="starability-basic">
                             <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0"
                                 checked aria-label="No rating." />
@@ -92,27 +92,33 @@
                 </form>
                 <% } %>
                     <h3>Reviews</h3>
-                    <% for(let review of campground.reviews){ %>
-                        <div class="card mb-3 ">
-                            <div class="card-body">
-                                <h5>
-                                    <%= review.author.username %>
-                                </h5>
-                                <p class="starability-result" data-rating="<%= review.rating %>">
-                                    Rated: <%= review.rating %> stars
-                                </p>
-                                <p>
-                                    <%= review.body %>
-                                </p>
-                                <% if(currentUser && review.author.equals(currentUser.id)){ %>
-                                    <form
-                                        action="/campgrounds/<%= campground.id %>/reviews/<%= review.id %>?_method=DELETE"
-                                        method="post"><button class="btn btn-sm btn-danger">delete</button>
-                                    </form>
-                                    <% } %>
-                            </div>
+                    <% if(campground.reviews.length===0){ %>
+                        <div class="card mb-3">
+                            <h4 class="p-3">No reviews yet</h4>
                         </div>
-                        <% } %>
+                        <% }else{%>
+                            <% for(let review of campground.reviews){ %>
+                                <div class="card mb-3 ">
+                                    <div class="card-body">
+                                        <h5>
+                                            <%= review.author.username %>
+                                        </h5>
+                                        <p class="starability-result" data-rating="<%= review.rating %>">
+                                            Rated: <%= review.rating %> stars
+                                        </p>
+                                        <p>
+                                            <%= review.body %>
+                                        </p>
+                                        <% if(currentUser && review.author.equals(currentUser.id)){ %>
+                                            <form
+                                                action="/campgrounds/<%= campground.id %>/reviews/<%= review.id %>?_method=DELETE"
+                                                method="post"><button class="btn btn-sm btn-danger">delete</button>
+                                            </form>
+                                            <% } %>
+                                    </div>
+                                </div>
+                                <% } %>
+                                    <%} %>
         </div>
     </div>
 
