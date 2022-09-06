@@ -4,7 +4,7 @@ const { descriptors, places } = require("./seedHelper")
 const Campground = require("../models/campground");
 
 
-mongoose.connect('mongodb://localhost:27017/Yelp-camp')
+mongoose.connect("mongodb+srv://shreerajpalande:Goodwill%401997@cluster0.c8fudw4.mongodb.net/?retryWrites=true&w=majority")
     .then(() => {
         console.log("DATABASE CONNECTED")
     })

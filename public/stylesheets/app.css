@@ -9,8 +9,11 @@
 }
 
 .carousel-item {
-    width: 100%;
-    max-height: 300px;
+    height: 350px;
+}
+
+.carousel-image {
+    height: 350px;
     margin-top: auto;
     margin-bottom: auto;
 }
