@@ -18,3 +18,7 @@
     margin-bottom: auto;
 }
 
+.login-img {
+    border-top-left-radius: 1%;
+    border-top-right-radius: 1%;
+}
