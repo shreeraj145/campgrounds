@@ -3,10 +3,10 @@ const cities = require('./cities');
 const { descriptors, places } = require("./seedHelper")
 const Campground = require("../models/campground");
 
-const dbUrl = process.env.DB_URL
-// 'mongodb://localhost:27017/Yelp-camp'
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/Yelp-camp'
 
-mongoose.connect("mongodb+srv://shreerajpalande:Goodwill%401997@cluster0.c8fudw4.mongodb.net/?retryWrites=true&w=majority")
+
+mongoose.connect(dbUrl)
     .then(() => {
         console.log("DATABASE CONNECTED")
     })
