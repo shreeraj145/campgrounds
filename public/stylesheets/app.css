@@ -1,6 +1,9 @@
 #cluster-map {
-    width: 100%;
-    height: 500px
+    width: 100vw;
+    position: relative;
+    left: calc(-50vw + 50%);
+    height: 400px;
+
 }
 
 #map {

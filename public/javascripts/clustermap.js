@@ -1,9 +1,8 @@
 mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
     container: 'cluster-map',
-    // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
     style: 'mapbox://styles/mapbox/dark-v10?optimize=true',
-    center: [77.3612, 23.4774],
+    center: [79.0882, 21.1458],
     zoom: 3
 });
 map.addControl(new mapboxgl.NavigationControl());
@@ -13,8 +12,8 @@ map.on('load', () => {
         type: 'geojson',
         data: campgrounds,
         cluster: true,
-        clusterMaxZoom: 5, // Max zoom to cluster points on
-        clusterRadius: 25 // Radius of each cluster when clustering points (defaults to 50)
+        clusterMaxZoom: 5,
+        clusterRadius: 25
     });
 
     map.addLayer({
@@ -23,11 +22,7 @@ map.on('load', () => {
         source: 'campgrounds',
         filter: ['has', 'point_count'],
         paint: {
-            // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-            // with three steps to implement three types of circles:
-            //   * Blue, 20px circles when point count is less than 100
-            //   * Yellow, 30px circles when point count is between 100 and 750
-            //   * Pink, 40px circles when point count is greater than or equal to 750
+
             'circle-color': [
                 'step',
                 ['get', 'point_count'],
@@ -93,10 +88,7 @@ map.on('load', () => {
         );
     });
 
-    // When a click event occurs on a feature in
-    // the unclustered-point layer, open a popup at
-    // the location of the feature, with
-    // description HTML from its properties.
+
     map.on('click', 'unclustered-point', (e) => {
         const popText = `<strong><a href="/campgrounds/${e.features[0].properties.id}">${e.features[0].properties.title}</a></strong>
         <p>${e.features[0].properties.description.substring(0, 50)}...</p>`;
